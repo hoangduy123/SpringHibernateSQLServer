@@ -1,42 +1,49 @@
-package entities;
+package fpt.training.entity;
 
-import java.io.Serializable;
-import java.util.Date;
-
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
+import org.hibernate.annotations.Nationalized;
 
-import org.springframework.format.annotation.DateTimeFormat;
+import java.time.LocalDate;
 
 @Entity
-@Table(name = "students")
-public class Student implements Serializable {
-
-//	@Id
-//	@GeneratedValue(strategy = GenerationType.IDENTITY) //mã tự động tăng
-//	private int studentId;
-
+@Table(name = "Students")
+public class Student {
     @Id
+    @Column(name = "student_id", nullable = false, length = 10)
     private String studentId;
-    private String fullName;
-    private boolean gender;
-    @Temporal(TemporalType.DATE)
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private Date birthDay;
-    private String email;
-    private String phone;
-    private String address;
-    private boolean active;
 
-    public Student() {
-        // TODO Auto-generated constructor stub
-    }
+    @Nationalized
+    @Column(name = "full_name", length = 100)
+    private String fullName;
+
+    @Column(name = "gender")
+    private Boolean gender;
+
+    @Column(name = "birthday")
+    private LocalDate birthday;
+
+    @Column(name = "email", length = 100)
+    private String email;
+
+    @Column(name = "phone", length = 100)
+    private String phone;
+
+    @Nationalized
+    @Column(name = "address", length = 200)
+    private String address;
+
+    @Column(name = "active")
+    private Boolean active;
 
     public String getStudentId() {
         return studentId;
+    }
+
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
     }
 
     public String getFullName() {
@@ -47,20 +54,20 @@ public class Student implements Serializable {
         this.fullName = fullName;
     }
 
-    public boolean isGender() {
+    public Boolean getGender() {
         return gender;
     }
 
-    public void setGender(boolean gender) {
+    public void setGender(Boolean gender) {
         this.gender = gender;
     }
 
-    public Date getBirthDay() {
-        return birthDay;
+    public LocalDate getBirthday() {
+        return birthday;
     }
 
-    public void setBirthDay(Date birthDay) {
-        this.birthDay = birthDay;
+    public void setBirthday(LocalDate birthday) {
+        this.birthday = birthday;
     }
 
     public String getEmail() {
@@ -87,17 +94,12 @@ public class Student implements Serializable {
         this.address = address;
     }
 
-    public boolean isActive() {
+    public Boolean getActive() {
         return active;
     }
 
-    public void setActive(boolean active) {
+    public void setActive(Boolean active) {
         this.active = active;
     }
-
-    public void setStudentId(String studentId) {
-        this.studentId = studentId;
-    }
-
 
 }
